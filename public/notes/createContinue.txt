@@ -1,0 +1,71 @@
+------create web route using resources
+
+Route::resource('products', ProductController::class);
+
+------create.blade.php
+
+<form action="{{ route('products.store') }}" method="POST">
+    @csrf
+    <div>
+        <label for="">Name</label>
+        <input type="text" name="product_name">
+    </div>
+    <br>
+    <div>
+        <label for="">Price</label>
+        <input type="text" name="price">
+    </div>
+    <br>
+    <div>
+        <label for="">Status</label>
+        <select id="" name="status">
+            <option value="">Select Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+--------- controller code
+
+ public function index()
+    {
+        $products = Product::get();
+        return $products;
+    }
+
+ public function create()
+    {
+        return view('product.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // return $request->all();
+        // $request->validate([
+        //     'name' => 'required|unique',
+        //     'price' => 'required',
+        //     'status' => 'required'
+        // ]);
+
+
+        // Product::create($request->all());
+        Product::create([
+            'name' => $request->product_name,
+            'price' => $request->price,
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('products.index')->with('success', 'Product has been created!');
+    }
+

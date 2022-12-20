@@ -1,0 +1,26 @@
+Through seeders we can add data in databse and the benefit is even if we don't have records if we are migrating data from the scratch then it will help us to have the saved record
+
+for example admin can't be registered. So, instead of gererating record everytime through sql one can do create a seeder and by executing seeder one can get the record/records in the database
+
+
+1. how to create a seeder file
+php artisan make:seeder SeederName
+2. Create record in the seeder file
+after namespace paste this
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+public function run()
+    {
+        DB::table('users')->insert([
+            'name' => 'pranav1',
+            'password' => Hash::make('12345678'),
+            'email' => 'pranav1@test.com'
+        ]);
+    }
+
+3. execute php artisan db:seed --class=UserSeeder
+4. check database
+5. Else you can use the DatabaseSeeder and write the script as below
+$this->call([UserSeeder::class]);
+6. run command php artisan db:seed
+

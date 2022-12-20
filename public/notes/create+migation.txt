@@ -1,0 +1,65 @@
+command to create migration:
+php artisan make:migration product
+
+command to create model
+php artisan make:model Prodt
+
+command to create model with migration:
+php artisan make:model Product -m
+
+Create command/functionality in laravel
+
+Migartion - product
+Model - product
+controller - product
+view - product
+
+command to create a controller without any functions
+php artisan make:controller ProductController
+
+command to create a conroller with functions (Index, create, store, show, edit, update, destroy)
+php artisan make:controller ProductController --resource
+
+command to creaate a controller with model and migration
+php artisan make:model ModelName -mc
+
+command to create a model with migration and controller (resource)
+php artisan make:model ModelName -mcr
+
+Product migration code :
+Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('price');
+            $table->enum('status', ['active', 'inactive'])->nullable()->default('active');
+            $table->timestamps();
+        });
+
+After creating files go to web.php
+Route::get('/create-product', [App\Http\Controllers\ProductController::class, 'create'])->name('create-product');
+
+go to ProductController:
+public function create()
+    {
+        Product::create([
+            'name' => 'shoes',
+            'price' => '3000',
+            'status' => 'active'
+        ]);
+        return view('product.create');
+    }
+
+
+go to resources folder -> view
+create new folder "product"
+create new blade file inside product folder -> create.blade.php
+write down anything to see the output for eg:
+hello to laravel world!!!
+
+Inside model
+
+protected $fillable = [
+        'name',
+        'price',
+        'status'
+    ];
