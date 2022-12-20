@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('product')->get();
+        $orders = Order::with('product', 'customer')->get();
         return view('order.index', compact('orders'));
     }
 
@@ -68,7 +68,13 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $products = Product::all();
+        $order = Order::where('id', $id)->first();
+        // return ([
+        //     'order' => $order,
+        //     'product' => $products
+        // ]);
+        return view('order.edit', compact('products', 'order'));
     }
 
     /**

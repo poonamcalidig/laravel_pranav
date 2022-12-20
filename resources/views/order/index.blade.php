@@ -21,6 +21,7 @@
                                     <th>Product Name</th>
                                     <th>User Name</th>
                                     <th>Oder Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -28,14 +29,18 @@
                                     <th>Product Name</th>
                                     <th>User Name</th>
                                     <th>Oder Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 @foreach ($orders as $order)
                                     <tr>
-                                        <td>{{ $order->product_id }}</td>
-                                        <td>{{ $order->user_id }}</td>
+                                        <td>{{ $order->product->name }}</td>
+                                        <td>{{ $order->customer->name }}</td>
                                         <td>{{ $order->order_date }}</td>
+                                        <td>
+                                            <a href="{{ route('orders.edit', $order->id) }}">Edit</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

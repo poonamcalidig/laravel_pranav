@@ -31,5 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::post('/store-product', [App\Http\Controllers\ProductController::class, 'store'])->name('create-product');
 // Route::get('/create-product', ProductController::class);
 
-Route::resource('products', ProductController::class);
-Route::resource('orders', OrderController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('products', ProductController::class);
+    Route::resource('orders', OrderController::class);
+});
