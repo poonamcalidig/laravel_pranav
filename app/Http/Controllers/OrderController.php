@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderView;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -18,6 +19,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('product', 'customer')->get();
+        // $orders = OrderView::get();
+        return $orders;
         return view('order.index', compact('orders'));
     }
 
