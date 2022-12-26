@@ -20,7 +20,7 @@ class OrderController extends Controller
     {
         $orders = Order::with('product', 'customer')->get();
         // $orders = OrderView::get();
-        return $orders;
+        // return $orders;
         return view('order.index', compact('orders'));
     }
 
