@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,7 @@ Route::get('/users', function () {
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/create-product', [ProductController::class, 'store']);
-Route::put('/update-product/{id}', [ProductController::class, 'update']);
-Route::post('/delete-product', [ProductController::class, 'delete']);
+Route::post('/update-product/{id}', [ProductController::class, 'update']);
+Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
+
+Route::post('/create-user', [UserController::class, 'addNewUser']);

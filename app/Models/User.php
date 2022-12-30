@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,6 +22,8 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $appends = ['u_name', 'orders'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -41,4 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getUNameAttribute()
+    {
+        return strtolower($this->attributes['name']);
+    }
+
+    public function getOrdersAttribute()
+    {
+        return Order::where('user_id', $this->attributes['id'])->get();
+    }
+
+    public function setUserAttribute($value)
+    {
+        return $this->attributes['name'] = strtolower($value);
+    }
 }
