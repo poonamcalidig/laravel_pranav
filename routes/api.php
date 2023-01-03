@@ -31,3 +31,5 @@ Route::post('/update-product/{id}', [ProductController::class, 'update']);
 Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
 
 Route::post('/create-user', [UserController::class, 'addNewUser']);
+Route::get('/collection', [UserController::class, 'collection']);
+Route::get('/getAllUsers', [UserController::class, 'getAllUsers']);

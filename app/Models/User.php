@@ -53,8 +53,8 @@ class User extends Authenticatable
         return Order::where('user_id', $this->attributes['id'])->get();
     }
 
-    public function setUserAttribute($value)
+    public function setNameAttribute($value)
     {
-        return $this->attributes['name'] = strtolower($value);
+        $this->attributes['name'] = strtolower($value);
     }
 }

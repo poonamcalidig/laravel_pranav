@@ -13,9 +13,23 @@ class UserController extends Controller
         User::create([
             "name" => $request->name,
             "email" => $request->email,
-            "password" => $request->password
+            "password" => bcrypt($request->password)
         ]);
 
         return "User created";
+    }
+
+    public function collection()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6]);
+        $collection2 = [1, 2, 3, 4];
+        dd($collection2);
+    }
+
+    public function getAllUsers()
+    {
+        // dd(User::get()->toArray());
+        $jsonData = User::get()->pluck('id')->toJson();
+        dd(json_decode($jsonData));
     }
 }
