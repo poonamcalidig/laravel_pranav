@@ -14,4 +14,6 @@ class Product extends Model
         'price',
         'status'
     ];
+
+    protected $perPage = 10;
 }

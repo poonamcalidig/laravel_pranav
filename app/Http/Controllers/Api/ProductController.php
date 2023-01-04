@@ -12,7 +12,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Product::get();
+        return validate_user();
+        return Product::paginate();
     }
 
     public function store(Request $request)
@@ -20,18 +21,24 @@ class ProductController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'name' => 'required|unique',
+                'name' => 'required|unique:products,name',
                 'price' => 'required',
                 'status' => 'required'
             ]
         )->validate();
-        return $validate->message;
-        Product::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'status' => $request->status
-        ]);
-        return "Record inserted!";
+
+        if(empty($validate)) {
+            Product::create([
+                'name' => $request->name,
+                'price' => $request->price,
+                'status' => $request->status
+            ]);
+            return "Record inserted!";
+        }else {
+            return $validate;
+        }
+
+
     }
 
     public function update($id, Request $request)
